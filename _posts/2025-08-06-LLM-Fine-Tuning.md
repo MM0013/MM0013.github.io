@@ -149,6 +149,7 @@ trainer = Trainer(
 )
 trainer.train()
 
-# 10. License <a name="10-license"></a>
 
+
+# 10. License <a name="10-license"></a>
 MIT License. Free for personal and commercial use with attribution.
