@@ -51,7 +51,7 @@ This project summarizes **best practices** for:
 - **PEFT / LoRA**: Efficient fine-tuning for smaller hardware footprints.
 - **LangChain**: Prompt orchestration and evaluation integration.
 - **PyTorch**: Training backend.
-- **Datasets (🤗 Hub)**: Curation and hosting of domain-specific datasets.
+- **Datasets**: Curation and hosting of domain-specific datasets.
 - **Evaluation Tools**: LLM-as-a-judge, behavioral unit tests, and human-in-the-loop review.
 
 ---
