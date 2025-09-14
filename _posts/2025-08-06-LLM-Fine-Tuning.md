@@ -74,7 +74,7 @@ This project integrates a carefully chosen set of **open-source libraries, frame
 - **PyTorch**  
   The deep learning framework underpinning the training loop. PyTorch provides flexibility for experimenting with **custom loss functions, schedulers, and distributed training setups**. Its ecosystem of tools (e.g., PyTorch Lightning) accelerates training experiments.
 
-- **Datasets (🤗 Hub & Custom Curation)**  
+- **Datasets**  
   Fine-tuning success is tightly coupled with dataset quality. This project emphasizes building **small, carefully balanced datasets**, hosted either on HuggingFace Hub for collaboration or maintained privately for sensitive domains. Data curation includes normalization, cleaning, and alignment to task-specific objectives.
 
 - **Evaluation Tools**  
