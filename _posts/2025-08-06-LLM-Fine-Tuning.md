@@ -20,8 +20,7 @@ tags: [LLM, Fine-Tuning, PEFT, LangChain, AI Engineering, Model Training, Data C
 - [7. Evaluation Stack](#7-evaluation-stack)
 - [8. Deployment & Risk Mitigation](#8-deployment--risk-mitigation)
 - [9. Example Code](#9-example-code)
-- [10. References](#10-references)
-- [11. License](#11-license)
+- [10. License](#10-license)
 
 ---
 
@@ -150,13 +149,6 @@ trainer = Trainer(
 )
 trainer.train()
 
-# 10. References <a name="10-references"></a>
-
-Shivani Virdi – An Engineer’s Guide to Fine-Tuning (Part 1
-, Part 2)
-Hugging Face PEFT: https://github.com/huggingface/peft
-
-
-# 11. License <a name="11-license"></a>
+# 10. License <a name="10-license"></a>
 
 MIT License. Free for personal and commercial use with attribution.
