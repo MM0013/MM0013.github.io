@@ -193,13 +193,23 @@ Common risks & mitigations:
 ```python
 from transformers import AutoModelForCausalLM, AutoTokenizer, Trainer, TrainingArguments
 from peft import get_peft_model, LoraConfig, TaskType
+from datasets import load_dataset
 
-# Load base model
+# ---------------------------------------------------
+# 1. Load base model and tokenizer
+# ---------------------------------------------------
 model_name = "facebook/opt-1.3b"
-tokenizer = AutoTokenizer.from_pretrained(model_name)
+tokenizer = AutoTokenizer.from_pretrained(model_name, use_fast=True)
+
+# OPT models don’t always come with a pad token — fix that
+if tokenizer.pad_token is None:
+    tokenizer.pad_token = tokenizer.eos_token
+
 model = AutoModelForCausalLM.from_pretrained(model_name)
 
-# Apply LoRA for PEFT
+# ---------------------------------------------------
+# 2. Apply LoRA (parameter-efficient fine-tuning)
+# ---------------------------------------------------
 peft_config = LoraConfig(
     task_type=TaskType.CAUSAL_LM,
     inference_mode=False,
@@ -209,23 +219,66 @@ peft_config = LoraConfig(
 )
 model = get_peft_model(model, peft_config)
 
-# Training arguments
+# ---------------------------------------------------
+# 3. Load and preprocess dataset
+# ---------------------------------------------------
+# Example: using the built-in wikitext dataset
+raw_datasets = load_dataset("wikitext", "wikitext-2-raw-v1")
+
+def preprocess_function(examples):
+    # Tokenize inputs
+    outputs = tokenizer(
+        examples["text"],
+        truncation=True,
+        padding="max_length",
+        max_length=128,
+    )
+    # Labels are the same as input_ids for causal LM
+    outputs["labels"] = outputs["input_ids"].copy()
+    return outputs
+
+tokenized_train_dataset = raw_datasets["train"].map(preprocess_function, batched=True, remove_columns=["text"])
+tokenized_eval_dataset = raw_datasets["validation"].map(preprocess_function, batched=True, remove_columns=["text"])
+
+# ---------------------------------------------------
+# 4. Define training arguments
+# ---------------------------------------------------
 training_args = TrainingArguments(
     output_dir="./finetuned-model",
     per_device_train_batch_size=4,
-    num_train_epochs=3,
+    per_device_eval_batch_size=4,
+    num_train_epochs=1,
+    evaluation_strategy="epoch",
     save_strategy="epoch",
     logging_dir="./logs",
+    logging_steps=50,
+    save_total_limit=2,
+    fp16=True,              # if GPU supports it
+    report_to="none",       # disable WandB/MLflow unless you want it
 )
 
-# Define Trainer (with your dataset)
+# ---------------------------------------------------
+# 5. Trainer setup
+# ---------------------------------------------------
 trainer = Trainer(
     model=model,
     args=training_args,
-    train_dataset=train_dataset,  # preprocessed Dataset object
-    eval_dataset=eval_dataset,
+    train_dataset=tokenized_train_dataset,
+    eval_dataset=tokenized_eval_dataset,
+    tokenizer=tokenizer,  # ensures correct save & generation
 )
+
+# ---------------------------------------------------
+# 6. Train
+# ---------------------------------------------------
 trainer.train()
+
+# ---------------------------------------------------
+# 7. Save final model + tokenizer
+# ---------------------------------------------------
+trainer.save_model("./finetuned-model")
+tokenizer.save_pretrained("./finetuned-model")
+
 ```
 
 
