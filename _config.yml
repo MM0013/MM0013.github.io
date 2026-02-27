@@ -9,7 +9,7 @@ plugins:
 #-------------------------------
 # General Site Settings
 title: Mammad Mirza
-description: "Hello, I’m Mammad. I am an AI/ML Scientist with a PhD in Engineering and with expertise in applied ML, physics-based modeling, and optimization for energy systems. I use Python and deep learning frameworks such as Tensorflow, PyTorch, open-source platform (Hugging Face), as well as OpenAI and Gemini APIs to build RAG-enabled AI agents, semantic search tools, and intelligent agents. Furthermore, I am proficient in prompt engineering, vector search, and agent orchestration, with a strong programming foundation. Passionate about ethical, transparent AI and the responsible advancement of ML in impactful domains, such as healthcare, computer vision, clean energy, CCUS, mineral extraction, and reservoir simulation. Feel free to explore my projects or connect with me using my Linkedin profile link below."
+description: "Hello, I’m Mammad. I am an AI/ML Scientist with a PhD in Engineering and with expertise in applied ML, physics-based modeling, and optimization for energy systems. I use Python and deep learning frameworks such as Tensorflow, PyTorch, open-source platform (Hugging Face Transformers), as well as OpenAI and Gemini APIs to build RAG-enabled AI agents, semantic search tools, and intelligent agents. Furthermore, I am proficient in prompt engineering, vector search, and agent orchestration, with a strong programming foundation. Passionate about ethical, transparent AI and the responsible advancement of ML in impactful domains, such as healthcare, computer vision, clean energy, CCUS, mineral extraction, and reservoir simulation. Feel free to explore my projects or connect with me using my Linkedin profile link below."
 baseurl: "" # the subpath of your site, e.g. /blog
 url: "" # the base hostname & protocol for your site, e.g. http://example.com
 
@@ -50,6 +50,7 @@ defaults:
 #   - vendor/cache/
 #   - vendor/gems/
 #   - vendor/ruby/
+
 
 
 
